@@ -1,8 +1,8 @@
 import argparse
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Display input file with line numbers.")
-    parser.add_argument("--file", type=str, help="Path to the input file.")
+    parser = argparse.ArgumentParser(description="Displays input file with line numbers.")
+    parser.add_argument("--file", type=str, required=True, help="Path to the input file.")
     return parser.parse_args()
 
 def print_lnum(file):
