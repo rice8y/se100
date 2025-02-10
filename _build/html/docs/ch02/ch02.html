@@ -414,6 +414,8 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">21: テキストファイルの行数</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">22: テキストファイルを行番号付きで</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#csv">23: CSVファイルのヘッダーと行数</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">24: CSVファイルの読み書き（データの抽出を含む）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#json">25: JSONファイルの読み込み</a></li>
 </ul>
             </nav>
         </div>
@@ -536,7 +538,7 @@ SyntaxError: keyword argument repeated: required
 <li><p>項目の一覧</p></li>
 </ul>
 <p>を出力するプログラムを作りなさい.
-ただし, データの行数にはヘッダー(1行目)は含めないものとする.
+ただし, データの行数にはヘッダー(1行目)は含めないものとする.<br />
 (※irisデータの配布元<a class="reference external" href="https://archive.ics.uci.edu/dataset/53/iris">https://archive.ics.uci.edu/dataset/53/iris</a>)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -597,6 +599,290 @@ Item 2: sepal_width
 Item 3: petal_length
 Item 4: petal_width
 Item 5: class
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h2>24: CSVファイルの読み書き（データの抽出を含む）<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>この<a class="reference external" href="https://ds4se100.github.io/basic/2.file-manipulation/data/iris.csv">CSVファイル(カンマ区切りファイル)(iris.csv)</a>に格納されているデータでは, classとして'Iris-setosa', 'Iris-versicolor', 及び'Iris-virginica'の3種類がある.<br />
+このデータをclassごとに分けて3つのCSVファイルへそれぞれ出力するプログラムを作りなさい.
+なお, 出力先のCSVファイル名は「クラス名」+「.csv」とし, それぞれのデータ列classは含めないものとする.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ex24.py</span></code>:</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+
+<span class="k">def</span> <span class="nf">parse_args</span><span class="p">():</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Save iris dataset in CSV format for each class.&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--file&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to the input file.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">save_csv</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="n">setosa_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Iris-setosa&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">versicolor_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Iris-versicolor&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">virginica_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Iris-virginica&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        
+        <span class="n">setosa_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;Iris-setosa.csv&quot;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">versicolor_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;Iris-versicolor.csv&quot;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">virginica_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;Iris-virginica.csv&quot;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: File &#39;</span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2">&#39; not found.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+        
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">save_csv</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">file</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>python3<span class="w"> </span>ex24.py<span class="w"> </span>--file<span class="w"> </span>iris.csv
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls<span class="w"> </span>Iris*
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iris-setosa.csv  Iris-versicolor.csv  Iris-virginica.csv
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cat<span class="w"> </span>Iris-setosa.csv<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sepal_length,sepal_width,petal_length,petal_width
+5.1,3.5,1.4,0.2
+4.9,3.0,1.4,0.2
+4.7,3.2,1.3,0.2
+4.6,3.1,1.5,0.2
+5.0,3.6,1.4,0.2
+5.4,3.9,1.7,0.4
+4.6,3.4,1.4,0.3
+5.0,3.4,1.5,0.2
+4.4,2.9,1.4,0.2
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="json">
+<h2>25: JSONファイルの読み込み<a class="headerlink" href="#json" title="Link to this heading">#</a></h2>
+<p>この<a class="reference external" href="https://ds4se100.github.io/basic/2.file-manipulation/data/iris.json">JSONファイル(iris.json)</a>を読み込んで, 格納されているデータ数と各データの内容を出力するプログラムを作りなさい.<br />
+ただし, このJSONファイルでは150個のデータが配列(リスト)のかたちで与えられており, 各データは辞書型になっている.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># !wget https://ds4se100.github.io/basic/2.file-manipulation/data/iris.json</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ex25.py</span></code>:</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+
+<span class="k">def</span> <span class="nf">parse_args</span><span class="p">():</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Displays the JSON file.&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--file&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to the input file.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">print_json</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of lines: </span><span class="si">{</span><span class="n">rows</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Data:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: File &#39;</span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2">&#39; not found.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+        
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">print_json</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">file</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>python3<span class="w"> </span>ex25.py<span class="w"> </span>--file<span class="w"> </span>iris.json
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of lines: 150
+
+Data:
+ sepal_length  sepal_width  petal_length  petal_width           class
+          5.1          3.5           1.4          0.2     Iris-setosa
+          4.9          3.0           1.4          0.2     Iris-setosa
+          4.7          3.2           1.3          0.2     Iris-setosa
+          4.6          3.1           1.5          0.2     Iris-setosa
+          5.0          3.6           1.4          0.2     Iris-setosa
+          5.4          3.9           1.7          0.4     Iris-setosa
+          4.6          3.4           1.4          0.3     Iris-setosa
+          5.0          3.4           1.5          0.2     Iris-setosa
+          4.4          2.9           1.4          0.2     Iris-setosa
+          4.9          3.1           1.5          0.1     Iris-setosa
+          5.4          3.7           1.5          0.2     Iris-setosa
+          4.8          3.4           1.6          0.2     Iris-setosa
+          4.8          3.0           1.4          0.1     Iris-setosa
+          4.3          3.0           1.1          0.1     Iris-setosa
+          5.8          4.0           1.2          0.2     Iris-setosa
+          5.7          4.4           1.5          0.4     Iris-setosa
+          5.4          3.9           1.3          0.4     Iris-setosa
+          5.1          3.5           1.4          0.3     Iris-setosa
+          5.7          3.8           1.7          0.3     Iris-setosa
+          5.1          3.8           1.5          0.3     Iris-setosa
+          5.4          3.4           1.7          0.2     Iris-setosa
+          5.1          3.7           1.5          0.4     Iris-setosa
+          4.6          3.6           1.0          0.2     Iris-setosa
+          5.1          3.3           1.7          0.5     Iris-setosa
+          4.8          3.4           1.9          0.2     Iris-setosa
+          5.0          3.0           1.6          0.2     Iris-setosa
+          5.0          3.4           1.6          0.4     Iris-setosa
+          5.2          3.5           1.5          0.2     Iris-setosa
+          5.2          3.4           1.4          0.2     Iris-setosa
+          4.7          3.2           1.6          0.2     Iris-setosa
+          4.8          3.1           1.6          0.2     Iris-setosa
+          5.4          3.4           1.5          0.4     Iris-setosa
+          5.2          4.1           1.5          0.1     Iris-setosa
+          5.5          4.2           1.4          0.2     Iris-setosa
+          4.9          3.1           1.5          0.1     Iris-setosa
+          5.0          3.2           1.2          0.2     Iris-setosa
+          5.5          3.5           1.3          0.2     Iris-setosa
+          4.9          3.1           1.5          0.1     Iris-setosa
+          4.4          3.0           1.3          0.2     Iris-setosa
+          5.1          3.4           1.5          0.2     Iris-setosa
+          5.0          3.5           1.3          0.3     Iris-setosa
+          4.5          2.3           1.3          0.3     Iris-setosa
+          4.4          3.2           1.3          0.2     Iris-setosa
+          5.0          3.5           1.6          0.6     Iris-setosa
+          5.1          3.8           1.9          0.4     Iris-setosa
+          4.8          3.0           1.4          0.3     Iris-setosa
+          5.1          3.8           1.6          0.2     Iris-setosa
+          4.6          3.2           1.4          0.2     Iris-setosa
+          5.3          3.7           1.5          0.2     Iris-setosa
+          5.0          3.3           1.4          0.2     Iris-setosa
+          7.0          3.2           4.7          1.4 Iris-versicolor
+          6.4          3.2           4.5          1.5 Iris-versicolor
+          6.9          3.1           4.9          1.5 Iris-versicolor
+          5.5          2.3           4.0          1.3 Iris-versicolor
+          6.5          2.8           4.6          1.5 Iris-versicolor
+          5.7          2.8           4.5          1.3 Iris-versicolor
+          6.3          3.3           4.7          1.6 Iris-versicolor
+          4.9          2.4           3.3          1.0 Iris-versicolor
+          6.6          2.9           4.6          1.3 Iris-versicolor
+          5.2          2.7           3.9          1.4 Iris-versicolor
+          5.0          2.0           3.5          1.0 Iris-versicolor
+          5.9          3.0           4.2          1.5 Iris-versicolor
+          6.0          2.2           4.0          1.0 Iris-versicolor
+          6.1          2.9           4.7          1.4 Iris-versicolor
+          5.6          2.9           3.6          1.3 Iris-versicolor
+          6.7          3.1           4.4          1.4 Iris-versicolor
+          5.6          3.0           4.5          1.5 Iris-versicolor
+          5.8          2.7           4.1          1.0 Iris-versicolor
+          6.2          2.2           4.5          1.5 Iris-versicolor
+          5.6          2.5           3.9          1.1 Iris-versicolor
+          5.9          3.2           4.8          1.8 Iris-versicolor
+          6.1          2.8           4.0          1.3 Iris-versicolor
+          6.3          2.5           4.9          1.5 Iris-versicolor
+          6.1          2.8           4.7          1.2 Iris-versicolor
+          6.4          2.9           4.3          1.3 Iris-versicolor
+          6.6          3.0           4.4          1.4 Iris-versicolor
+          6.8          2.8           4.8          1.4 Iris-versicolor
+          6.7          3.0           5.0          1.7 Iris-versicolor
+          6.0          2.9           4.5          1.5 Iris-versicolor
+          5.7          2.6           3.5          1.0 Iris-versicolor
+          5.5          2.4           3.8          1.1 Iris-versicolor
+          5.5          2.4           3.7          1.0 Iris-versicolor
+          5.8          2.7           3.9          1.2 Iris-versicolor
+          6.0          2.7           5.1          1.6 Iris-versicolor
+          5.4          3.0           4.5          1.5 Iris-versicolor
+          6.0          3.4           4.5          1.6 Iris-versicolor
+          6.7          3.1           4.7          1.5 Iris-versicolor
+          6.3          2.3           4.4          1.3 Iris-versicolor
+          5.6          3.0           4.1          1.3 Iris-versicolor
+          5.5          2.5           4.0          1.3 Iris-versicolor
+          5.5          2.6           4.4          1.2 Iris-versicolor
+          6.1          3.0           4.6          1.4 Iris-versicolor
+          5.8          2.6           4.0          1.2 Iris-versicolor
+          5.0          2.3           3.3          1.0 Iris-versicolor
+          5.6          2.7           4.2          1.3 Iris-versicolor
+          5.7          3.0           4.2          1.2 Iris-versicolor
+          5.7          2.9           4.2          1.3 Iris-versicolor
+          6.2          2.9           4.3          1.3 Iris-versicolor
+          5.1          2.5           3.0          1.1 Iris-versicolor
+          5.7          2.8           4.1          1.3 Iris-versicolor
+          6.3          3.3           6.0          2.5  Iris-virginica
+          5.8          2.7           5.1          1.9  Iris-virginica
+          7.1          3.0           5.9          2.1  Iris-virginica
+          6.3          2.9           5.6          1.8  Iris-virginica
+          6.5          3.0           5.8          2.2  Iris-virginica
+          7.6          3.0           6.6          2.1  Iris-virginica
+          4.9          2.5           4.5          1.7  Iris-virginica
+          7.3          2.9           6.3          1.8  Iris-virginica
+          6.7          2.5           5.8          1.8  Iris-virginica
+          7.2          3.6           6.1          2.5  Iris-virginica
+          6.5          3.2           5.1          2.0  Iris-virginica
+          6.4          2.7           5.3          1.9  Iris-virginica
+          6.8          3.0           5.5          2.1  Iris-virginica
+          5.7          2.5           5.0          2.0  Iris-virginica
+          5.8          2.8           5.1          2.4  Iris-virginica
+          6.4          3.2           5.3          2.3  Iris-virginica
+          6.5          3.0           5.5          1.8  Iris-virginica
+          7.7          3.8           6.7          2.2  Iris-virginica
+          7.7          2.6           6.9          2.3  Iris-virginica
+          6.0          2.2           5.0          1.5  Iris-virginica
+          6.9          3.2           5.7          2.3  Iris-virginica
+          5.6          2.8           4.9          2.0  Iris-virginica
+          7.7          2.8           6.7          2.0  Iris-virginica
+          6.3          2.7           4.9          1.8  Iris-virginica
+          6.7          3.3           5.7          2.1  Iris-virginica
+          7.2          3.2           6.0          1.8  Iris-virginica
+          6.2          2.8           4.8          1.8  Iris-virginica
+          6.1          3.0           4.9          1.8  Iris-virginica
+          6.4          2.8           5.6          2.1  Iris-virginica
+          7.2          3.0           5.8          1.6  Iris-virginica
+          7.4          2.8           6.1          1.9  Iris-virginica
+          7.9          3.8           6.4          2.0  Iris-virginica
+          6.4          2.8           5.6          2.2  Iris-virginica
+          6.3          2.8           5.1          1.5  Iris-virginica
+          6.1          2.6           5.6          1.4  Iris-virginica
+          7.7          3.0           6.1          2.3  Iris-virginica
+          6.3          3.4           5.6          2.4  Iris-virginica
+          6.4          3.1           5.5          1.8  Iris-virginica
+          6.0          3.0           4.8          1.8  Iris-virginica
+          6.9          3.1           5.4          2.1  Iris-virginica
+          6.7          3.1           5.6          2.4  Iris-virginica
+          6.9          3.1           5.1          2.3  Iris-virginica
+          5.8          2.7           5.1          1.9  Iris-virginica
+          6.8          3.2           5.9          2.3  Iris-virginica
+          6.7          3.3           5.7          2.5  Iris-virginica
+          6.7          3.0           5.2          2.3  Iris-virginica
+          6.3          2.5           5.0          1.9  Iris-virginica
+          6.5          3.0           5.2          2.0  Iris-virginica
+          6.2          3.4           5.4          2.3  Iris-virginica
+          5.9          3.0           5.1          1.8  Iris-virginica
 </pre></div>
 </div>
 </div>
@@ -663,6 +949,8 @@ Item 5: class
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">21: テキストファイルの行数</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">22: テキストファイルを行番号付きで</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#csv">23: CSVファイルのヘッダーと行数</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">24: CSVファイルの読み書き（データの抽出を含む）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#json">25: JSONファイルの読み込み</a></li>
 </ul>
   </nav></div>
 
