@@ -63,9 +63,9 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/ch03/ch03';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/ch04/ch04';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <link rel="canonical" href="https://rice8y.github.io/se100/docs/ch03/ch03.html" />
+    <link rel="canonical" href="https://rice8y.github.io/se100/docs/ch04/ch04.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="prev" title="基本編2: ファイル処理" href="../ch02/ch02.html" />
@@ -231,7 +231,7 @@
       
       
       
-      <li><a href="https://colab.research.google.com/github/rice8y/se100/blob/main/docs/ch03/ch03.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/rice8y/se100/blob/main/docs/ch04/ch04.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -279,7 +279,7 @@
       
       
       
-      <li><a href="https://github.com/rice8y/se100/edit/main/docs/ch03/ch03.ipynb" target="_blank"
+      <li><a href="https://github.com/rice8y/se100/edit/main/docs/ch04/ch04.ipynb" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -296,7 +296,7 @@
       
       
       
-      <li><a href="https://github.com/rice8y/se100/issues/new?title=Issue%20on%20page%20%2Fdocs/ch03/ch03.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/rice8y/se100/issues/new?title=Issue%20on%20page%20%2Fdocs/ch04/ch04.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -326,7 +326,7 @@
       
       
       
-      <li><a href="../../_sources/docs/ch03/ch03.ipynb" target="_blank"
+      <li><a href="../../_sources/docs/ch04/ch04.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -450,16 +450,12 @@ Activate with: <span class=" -Color -Color-Green">source py-3.12/bin/activate</s
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>deactivate
-<span class="o">!</span>uv<span class="w"> </span>venv<span class="w"> </span>py-3.13<span class="w"> </span>--python<span class="w"> </span><span class="m">3</span>.13
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>uv<span class="w"> </span>venv<span class="w"> </span>py-3.13<span class="w"> </span>--python<span class="w"> </span><span class="m">3</span>.13
 <span class="o">!</span>.<span class="w"> </span>py-3.13/bin/activate<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python<span class="w"> </span>--version
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/bin/bash: line 1: deactivate: command not found
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using CPython <span class=" -Color -Color-Cyan">3.13.2</span>
 Creating virtual environment at: <span class=" -Color -Color-Cyan">py-3.13</span>
 Activate with: <span class=" -Color -Color-Green">source py-3.13/bin/activate</span>
@@ -489,6 +485,10 @@ Activate with: <span class=" -Color -Color-Green">source py-3.13/bin/activate</s
 Available versions: 1.4.2, 1.4.1, 1.4.0, 1.3.2, 1.3.1, 1.3.0, 1.2.0, 1.1.2, 1.1.1, 1.0.0, 0.11.0, 0.10.2, 0.10.1, 0.10.0, 0.9.0
 </pre></div>
 </div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  INSTALLED: 1.2.0
+  LATEST:    1.4.2
+</pre></div>
+</div>
 </div>
 </div>
 <div class="cell docutils container">
@@ -499,65 +499,26 @@ Available versions: 1.4.2, 1.4.1, 1.4.0, 1.3.2, 1.3.1, 1.3.0, 1.2.0, 1.1.2, 1.1.
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting nvitop==1.4.0
+  Using cached nvitop-1.4.0-py3-none-any.whl.metadata (80 kB)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading nvitop-1.4.0-py3-none-any.whl.metadata (80 kB)
-?25l     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/80.1 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">30.7/80.1 kB</span> <span class=" -Color -Color-Red">1.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━ <span class=" -Color -Color-Green">71.7/80.1 kB</span> <span class=" -Color -Color-Red">1.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">80.1/80.1 kB</span> <span class=" -Color -Color-Red">904.2 kB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25h
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting nvidia-ml-py&lt;12.561.0a0,&gt;=11.450.51 (from nvitop==1.4.0)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading nvidia_ml_py-12.560.30-py3-none-any.whl.metadata (8.6 kB)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: nvidia-ml-py&lt;12.561.0a0,&gt;=11.450.51 in /home/yoneyama/base/lib/python3.12/site-packages (from nvitop==1.4.0) (12.535.161)
 Requirement already satisfied: psutil&gt;=5.6.6 in /home/yoneyama/base/lib/python3.12/site-packages (from nvitop==1.4.0) (6.1.0)
+Requirement already satisfied: cachetools&gt;=1.0.1 in /home/yoneyama/base/lib/python3.12/site-packages (from nvitop==1.4.0) (5.5.1)
+Requirement already satisfied: termcolor&gt;=1.0.0 in /home/yoneyama/base/lib/python3.12/site-packages (from nvitop==1.4.0) (2.5.0)
+Using cached nvitop-1.4.0-py3-none-any.whl (216 kB)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting cachetools&gt;=1.0.1 (from nvitop==1.4.0)
-  Downloading cachetools-5.5.1-py3-none-any.whl.metadata (5.4 kB)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: nvitop
+  Attempting uninstall: nvitop
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting termcolor&gt;=1.0.0 (from nvitop==1.4.0)
-  Downloading termcolor-2.5.0-py3-none-any.whl.metadata (6.1 kB)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Found existing installation: nvitop 1.2.0
+    Uninstalling nvitop-1.2.0:
+      Successfully uninstalled nvitop-1.2.0
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading nvitop-1.4.0-py3-none-any.whl (216 kB)
-?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/216.4 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">71.7/216.4 kB</span> <span class=" -Color -Color-Red">2.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">215.0/216.4 kB</span> <span class=" -Color -Color-Red">3.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">216.4/216.4 kB</span> <span class=" -Color -Color-Red">2.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25hDownloading cachetools-5.5.1-py3-none-any.whl (9.5 kB)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading nvidia_ml_py-12.560.30-py3-none-any.whl (40 kB)
-?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/40.5 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">40.5/40.5 kB</span> <span class=" -Color -Color-Red">1.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25hDownloading termcolor-2.5.0-py3-none-any.whl (7.8 kB)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: nvidia-ml-py, termcolor, cachetools, nvitop
-  Attempting uninstall: nvidia-ml-py
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Found existing installation: nvidia-ml-py 12.570.86
-    Uninstalling nvidia-ml-py-12.570.86:
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Successfully uninstalled nvidia-ml-py-12.570.86
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed cachetools-5.5.1 nvidia-ml-py-12.560.30 nvitop-1.4.0 termcolor-2.5.0
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed nvitop-1.4.0
 </pre></div>
 </div>
 </div>
@@ -582,14 +543,12 @@ Requirement already satisfied: psutil&gt;=5.6.6 in /home/yoneyama/base/lib/pytho
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting git+https://github.com/XuehaiPan/nvitop.git@ec53de75b4579c319eb6e6b5c1e906d5cb90b561
-  Cloning https://github.com/XuehaiPan/nvitop.git (to revision ec53de75b4579c319eb6e6b5c1e906d5cb90b561) to /tmp/pip-req-build-960oxgdx
-  Running command git clone --filter=blob:none --quiet https://github.com/XuehaiPan/nvitop.git /tmp/pip-req-build-960oxgdx
+  Cloning https://github.com/XuehaiPan/nvitop.git (to revision ec53de75b4579c319eb6e6b5c1e906d5cb90b561) to /tmp/pip-req-build-18z8ffnc
+  Running command git clone --filter=blob:none --quiet https://github.com/XuehaiPan/nvitop.git /tmp/pip-req-build-18z8ffnc
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Running command git rev-parse -q --verify &#39;sha^ec53de75b4579c319eb6e6b5c1e906d5cb90b561&#39;
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Running command git fetch -q https://github.com/XuehaiPan/nvitop.git ec53de75b4579c319eb6e6b5c1e906d5cb90b561
+  Running command git fetch -q https://github.com/XuehaiPan/nvitop.git ec53de75b4579c319eb6e6b5c1e906d5cb90b561
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Running command git checkout -q ec53de75b4579c319eb6e6b5c1e906d5cb90b561
@@ -620,42 +579,26 @@ Requirement already satisfied: psutil&gt;=5.6.6 in /home/yoneyama/base/lib/pytho
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> done
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25hCollecting nvidia-ml-py&lt;12.536.0a0,&gt;=11.450.51 (from nvitop==1.2.0)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading nvidia_ml_py-12.535.161-py3-none-any.whl.metadata (8.6 kB)
+?25hRequirement already satisfied: nvidia-ml-py&lt;12.536.0a0,&gt;=11.450.51 in /home/yoneyama/base/lib/python3.12/site-packages (from nvitop==1.2.0) (12.535.161)
 Requirement already satisfied: psutil&gt;=5.6.6 in /home/yoneyama/base/lib/python3.12/site-packages (from nvitop==1.2.0) (6.1.0)
 Requirement already satisfied: cachetools&gt;=1.0.1 in /home/yoneyama/base/lib/python3.12/site-packages (from nvitop==1.2.0) (5.5.1)
 Requirement already satisfied: termcolor&gt;=1.0.0 in /home/yoneyama/base/lib/python3.12/site-packages (from nvitop==1.2.0) (2.5.0)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading nvidia_ml_py-12.535.161-py3-none-any.whl (37 kB)
-Building wheels for collected packages: nvitop
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Building wheels for collected packages: nvitop
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Building wheel for nvitop (pyproject.toml) ... ?25l-
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> done
-?25h  Created wheel for nvitop: filename=nvitop-1.2.0-py3-none-any.whl size=209903 sha256=06e6e25e2bff647c89aa371765ba3f86ce98bcd44da8a4ec9710bfb261bda89c
+?25h  Created wheel for nvitop: filename=nvitop-1.2.0-py3-none-any.whl size=209903 sha256=40e2e230f8ef3dc1ca56154d6253fd5edee8fd3385991517ed95ecf4477ddcc5
   Stored in directory: /home/yoneyama/.cache/pip/wheels/d0/b6/54/17e1b83d81f16cc149f5cc527d4da1290f528bf7c3becab9cd
+Successfully built nvitop
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully built nvitop
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: nvidia-ml-py, nvitop
-  Attempting uninstall: nvidia-ml-py
-    Found existing installation: nvidia-ml-py 12.560.30
-    Uninstalling nvidia-ml-py-12.560.30:
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Successfully uninstalled nvidia-ml-py-12.560.30
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Attempting uninstall: nvitop
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: nvitop
+  Attempting uninstall: nvitop
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Found existing installation: nvitop 1.4.0
@@ -663,7 +606,7 @@ Building wheels for collected packages: nvitop
       Successfully uninstalled nvitop-1.4.0
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed nvidia-ml-py-12.535.161 nvitop-1.2.0
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed nvitop-1.2.0
 </pre></div>
 </div>
 </div>
@@ -696,7 +639,7 @@ Building wheels for collected packages: nvitop
         },
         kernelOptions: {
             name: "python3",
-            path: "./docs/ch03"
+            path: "./docs/ch04"
         },
         predefinedOutput: true
     }
