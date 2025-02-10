@@ -5,7 +5,7 @@ parts:
     chapters:
     - file: docs/ch01/ch01.ipynb
     - file: docs/ch02/ch02.ipynb
-# - file: docs/ch03/ch03.ipynb
+    - file: docs/ch03/ch03.ipynb
 # - file: docs/ch04/ch04.ipynb
 # - file: docs/ch05/ch05.ipynb
 # - file: docs/ch06/ch06.ipynb
