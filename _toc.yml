@@ -1,8 +1,10 @@
 format: jb-book
 root: docs/intro
-chapters:
-- file: docs/ch01/ch01.ipynb
-- file: docs/ch02/ch02.ipynb
+parts:
+  - caption: 基本編
+    chapters:
+    - file: docs/ch01/ch01.ipynb
+    - file: docs/ch02/ch02.ipynb
 # - file: docs/ch03/ch03.ipynb
 # - file: docs/ch04/ch04.ipynb
 # - file: docs/ch05/ch05.ipynb
