@@ -21,7 +21,7 @@ def grep(file, tgt):
                 
     if not flag:
         raise ValueError(f"Error: '{tgt}' was not found in '{file}'.")
-
+        
 def main():
     args = parse_args()
     grep(args.file, args.tgt)
